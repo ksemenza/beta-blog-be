@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
     })
 
     .createTable('comments', tbl => {
-        tbl.increments()
+        tbl.increments('id')
         tbl.string('comment').notNullable()
         tbl.string('post_id').unsigned().notNullable()
         .references('id').inTable('posts').onUpdate('CASCADE').onDelete('RESTRICT')
@@ -34,11 +34,8 @@ exports.up = function(knex, Promise) {
     .createTable('notifications', tbl => {
         tbl.increments()
         tbl.string('reaction').notNullable()
-        tbl.string('post_id').unsigned().notNullable()
-        .references('id').inTable('posts').onUpdate('CASCADE').onDelete('RESTRICT')
-       
-        
-
+        tbl.string('comment_id').unsigned().notNullable()
+        .references('id').inTable('comments').onUpdate('CASCADE').onDelete('RESTRICT')
     })
   
 };

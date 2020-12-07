@@ -1,17 +1,8 @@
 const express = require('express');
 const commentModel = require('../models/comment-model.js');
 const router = express.Router();
+const restricted = require('../user/auth-middleware.js')
 
-
-router.get('/', (req, res) => {
-    commentModel.getCommentAll()
-    .then(response => {
-        res.status(200).json(response)
-    })
-    .catch(err => {
-        res.status(500).json({error: err, message: 'Error did not get comment list'})
-    })
-})
 
 // POST
 router.post('/', (req, res) => {
@@ -21,26 +12,39 @@ router.post('/', (req, res) => {
         res.status(200).json(response)
     })
     .catch(err => {
-        res.status(500).json({error: err, message: 'Error Comments were not added'})
+        res.status(500).json({error: err, message: 'Error Posts were not added'})
     })
 });
+
+router.get('/', (req,res) => {
+
+    commentModel.getCommentsAll()
+    .then(response => {
+        res.status(200).json(response);
+    })
+    .catch(err => {
+        res.status(500).json({error: err, message:`Error user id post was not found`})
+    })
+})
+
 
 
 // GET STRAIN ID
 router.get('/:id', (req, res) => {
     const id = req.params.id;
+
     commentModel.getComment(id)
     .then(response => {
         res.status(200).json(response)
     })
     .catch(err => {
-        res.status(500).json({error: err, message: `Error Comment id ${id} were not found` })
+        res.status(500).json({error: err, message: `Error Post id ${id} were not found` })
     })
 });
 
-router.get('/user/:id', (req, res) => {
+router.get('/:id/details', (req, res) => {
     const id = req.params.id;
-    commentModel.getCommentForUser(id)
+    commentModel.getPostComment(id)
     .then(response => {
         res.status(200).json(response)
     })
@@ -54,7 +58,7 @@ router.delete('/:id', (req, res) => {
     const id = req.params.id;
     commentModel.removeComment(id)
         .then(response => {
-            res.status(200).json({message: `Removed comment with id ${id}`});
+            res.status(200).json({message: `Removed user with id ${id}`});
         })
         .catch(err => {
             res.status(500).json(err);
@@ -69,7 +73,7 @@ router.put('/:id', (req,res) => {
         res.status(200).json(response);
     })
     .catch(err => {
-        res.status(500).json({error: err, message:`Error Comment ${id} was not updated`})
+        res.status(500).json({error: err, message:`Error Post ${id} was not updated`})
     })
 })
 

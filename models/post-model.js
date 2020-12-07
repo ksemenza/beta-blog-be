@@ -2,7 +2,7 @@ module.exports = {
     getPostsAll,
     getPosts,
     addPost,
-    getPostForUser,
+    getPost,
     getUserPost,
     removePost,
     updatePost,
@@ -15,24 +15,17 @@ function getPostsAll(){
 }
 
 function addPost(newPost) {
-    const pos = {
-        author: newPost.author,
-        title: newPost.title,
-        content: newPost.content,
-        topic: newPost.topic,
-        user_id: newPost.user_id
-    }
     return db('posts')
-    .insert(post)
-    .then(ids => {
-        return getPostForUser(ids[0]);
-    })
+        .insert(newPost)
+        .then(ids => {
+            return getPost(ids[0]);
+        });
 }
 
-function getPostForUser(post_id) {
+function getPost(post_id) {
     return db('posts')
     .where({id: post_id})
-    .first()
+    .first();
 }
 
 function getPosts(post_id) {

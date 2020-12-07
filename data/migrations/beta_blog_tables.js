@@ -11,14 +11,12 @@ exports.up = function(knex, Promise) {
 
       .createTable('posts', tbl => {
         tbl.increments('id').index()
-        tbl.timestamp('created_at').defaultTo(knex.fn.now()) 
-        tbl.string('author').unsigned().notNullable();
+        // tbl.timestamp('created_at').defaultTo(knex.fn.now()) 
         tbl.string('title', 255).notNullable()
         tbl.string('topic', 255)
         tbl.string('content').notNullable()
-        tbl.foreign('author').references('username').inTable('users')
         tbl.string('user_id').unsigned().notNullable()
-        .references('id').inTable('users').onUpdate('CASCADE').onDelete('RESTRICT')
+        .references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
 
         
     })

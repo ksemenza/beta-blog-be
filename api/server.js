@@ -5,11 +5,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 
-
-
-
 const userRouter = require('../user/user-router.js')
-
+const postRouter = require('../routers/post-router.js')
 
 const server = express();
 
@@ -22,6 +19,7 @@ server.use(morgan('tiny'));
 server.use(cors());
 
 server.use('/api/auth', userRouter)
+server.use('/api/post', postRouter)
 
 
 const PORT =  process.env.PORT || 8080;

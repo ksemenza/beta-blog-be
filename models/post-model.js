@@ -6,12 +6,17 @@ module.exports = {
     getUserPost,
     removePost,
     updatePost,
+    getPostDetails
 }
+
+const userModel = require('../user/user-model.js')
+const commentModel = require('./comment-model.js')
+const notificationModel = require('./notification-model.js')
 
 const db = require('../data/db-config.js')
 
 function getPostsAll(){
-    return db('pos')
+    return db('posts')
 }
 
 function addPost(newPost) {
@@ -52,17 +57,12 @@ function getUserPost(user_id) {
 }
 
 
-
-
-async function removePost(post_id) {
-    const post = await getPost(post_id);
+function removePost(post_id) {
     return db('posts')
-    .where({id: post_id})
-    .del()
-    .then(() => {
-        return post
-    })
+        .where({ id: post_id })
+        .del();
 }
+
 
 function updatePost(post_id, updatedPost) {
     return db('posts')
@@ -72,4 +72,15 @@ function updatePost(post_id, updatedPost) {
         return getPost(post_id)
     })
 }
+
+async function getPostDetails(post_id) {
+    const post = await getPost(post_id)
+    const comments = await commentModel.getPostComment(post_id)
+
+    return {
+        'id': post.id,
+        'comments':comments.comment
+    }
+}
+
 

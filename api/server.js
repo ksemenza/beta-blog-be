@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 const userRouter = require('../user/user-router.js')
 const postRouter = require('../routers/post-router.js')
+const commentRouter = require('../routers/comment-router.js')
 
 const server = express();
 
@@ -20,6 +21,7 @@ server.use(cors());
 
 server.use('/api/auth', userRouter)
 server.use('/api/post', postRouter)
+server.use('/api/comment', commentRouter)
 
 
 const PORT =  process.env.PORT || 8080;

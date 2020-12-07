@@ -1,17 +1,8 @@
 const express = require('express');
 const postModel = require('../models/post-model.js');
 const router = express.Router();
+const restricted = require('../user/auth-middleware.js')
 
-
-router.get('/', (req, res) => {
-    postModel.getPostAll()
-    .then(response => {
-        res.status(200).json(response)
-    })
-    .catch(err => {
-        res.status(500).json({error: err, message: 'Error did not get positive effects list'})
-    })
-})
 
 // POST
 router.post('/', (req, res) => {
@@ -24,6 +15,18 @@ router.post('/', (req, res) => {
         res.status(500).json({error: err, message: 'Error Posts were not added'})
     })
 });
+
+router.get('/', (req,res) => {
+
+    postModel.getPostsAll()
+    .then(response => {
+        res.status(200).json(response);
+    })
+    .catch(err => {
+        res.status(500).json({error: err, message:`Error user id post was not found`})
+    })
+})
+
 
 
 // GET STRAIN ID
@@ -39,9 +42,9 @@ router.get('/:id', (req, res) => {
     })
 });
 
-router.get('/user/:id', (req, res) => {
+router.get('/:id/details', (req, res) => {
     const id = req.params.id;
-    postModel.getPostForUser(id)
+    postModel.getPostDetails(id)
     .then(response => {
         res.status(200).json(response)
     })
@@ -50,15 +53,16 @@ router.get('/user/:id', (req, res) => {
     })
 })
 
-router.delete('/:id', (req,res) => {
+// DELETE USER BY ID
+router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    postModel.removePos(id)
-    .then(response => {
-        res.status(200).json(response);
-    })
-    .catch(err => {
-        res.status(500).json({error: err, message:`Error post id ${id} was not deleted`})
-    });
+    postModel.removePost(id)
+        .then(response => {
+            res.status(200).json({message: `Removed user with id ${id}`});
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
 });
 
 router.put('/:id', (req,res) => {

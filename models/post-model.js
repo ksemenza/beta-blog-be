@@ -50,12 +50,9 @@ function getPosts(post_id) {
 
 function getUserPost(user_id) {
     return db('posts')
-    .join('users', 'users.user_id', 'posts.user_id' )
-    .select('posts.post_id', 'posts.name')
-    .where('posts.user_id', user_id)
+    .where({'user_id' : user_id}) 
     
 }
-
 
 function removePost(post_id) {
     return db('posts')
@@ -73,13 +70,15 @@ function updatePost(post_id, updatedPost) {
     })
 }
 
-async function getPostDetails(post_id) {
+async function getPostDetails(user_id, post_id, comment_id, notification_id) {
     const post = await getPost(post_id)
     const comments = await commentModel.getPostComment(post_id)
+    const notifications = await notificationModel.getCommentNotification(comment_id)
 
     return {
         'id': post.id,
-        'comments':comments.comment
+        'comments':comments.comment,
+        'reactions':notifications.reaction
     }
 }
 

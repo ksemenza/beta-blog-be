@@ -29,10 +29,7 @@ function getComment(post_id) {
 
 function getPostComment(post_id) {
     return db('comments')
-    .join('posts', 'posts.post_id', 'comment.id' )
-    .select('comments.id', 'comments.comment')
-    .where('comments.post_id', post_id)
-    
+    .where({'post_id' : post_id}) 
 }
 
 function removeComment(comment_id) {

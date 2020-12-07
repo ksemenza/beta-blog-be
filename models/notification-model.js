@@ -28,11 +28,8 @@ function getNotification(comment_id) {
 }
 
 function getCommentNotification(comment_id) {
-    return db('comments')
-    .join('comments', 'comments.comment_id', 'notification.id' )
-    .select('notifications.id', 'notifications.reaction')
-    .where('notifications.comment_id', comment_id)
-    
+    return db('notification')
+    .where({'comment_id' : comment_id}) 
 }
 
 function removeNotification(notification_id) {

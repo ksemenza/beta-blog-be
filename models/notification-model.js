@@ -35,7 +35,7 @@ function getCommentNotification(comment_id) {
     
 }
 
-function removeComment(notification_id) {
+function removeNotification(notification_id) {
     return db('notifications')
         .where({ id: notification_id })
         .del();

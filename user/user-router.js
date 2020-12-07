@@ -91,6 +91,7 @@ router.get('/:id', restricted, (req,res) => {
 });
 
 // UPDATE USER ACCOUNT
+// TODO Update password to include password encryption
 router.put('/:id', restricted, (req, res) => {
     const id = req.params.id;
     const updatedUser = req.body;

@@ -1,11 +1,13 @@
 module.exports = {
     addUser,
+    updateUser,
     findUserById,
     findUserByUsername, 
     findUsers,
     removeUser,
     getUsers,
-    getUserPost
+    getUserPost,
+    
 }
 
 const db = require('../data/db-config.js');
@@ -41,6 +43,22 @@ function findUsers() {
     .select('users.id', 'users.username');
 }
 
+function getUser(user_id) {
+    return db('users')
+    .where({id: user_id})
+    .first();
+}
+
+
+function updateUser(user_id, updatedUser) {
+    return db('users')
+    .where({id:  user_id})
+    .update(updatedUser)
+    .then(count => {
+        return getUser(user_id)
+    })
+}
+
 function removeUser(user_id) {
     return db('users')
         .where({ id: user_id })
@@ -49,7 +67,7 @@ function removeUser(user_id) {
 
 
 function getUserPost(user_id) {
-    return db('post')
+    return db('posts')
     .join('users', 'users.user_id', 'posts.user_id' )
     .select('posts.post_id', 'posts.name')
     .where('posts.user_id', user_id)

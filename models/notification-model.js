@@ -28,7 +28,7 @@ function getNotification(comment_id) {
 }
 
 function getCommentNotification(comment_id) {
-    return db('notification')
+    return db('notifications')
     .where({'comment_id' : comment_id}) 
 }
 

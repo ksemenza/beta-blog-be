@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/details', (req, res) => {
     const id = req.params.id;
-    commentModel.getPostComment(id)
+    commentModel.getCommentDetails(id)
     .then(response => {
         res.status(200).json(response)
     })

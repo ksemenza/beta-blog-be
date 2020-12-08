@@ -1,12 +1,15 @@
 
 exports.up = function(knex, Promise) {
-    return   knex.schema.createTable('users', tbl => {
+    return   knex.schema
+    
+    .createTable('users', tbl => {
         tbl.increments('id').index()
         tbl.string('first_name', 255).notNullable();
         tbl.string('last_name', 255).notNullable();
         tbl.string('username', 255).notNullable().unique();
         tbl.string('email', 255).notNullable().unique();
-        tbl.string('password', 255).notNullable()       
+        tbl.string('password', 255).notNullable()  
+             
     })
 
       .createTable('posts', tbl => {
@@ -17,8 +20,6 @@ exports.up = function(knex, Promise) {
         tbl.string('content').notNullable()
         tbl.string('user_id').unsigned().notNullable()
         .references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
-
-        
     })
 
     .createTable('comments', tbl => {
@@ -26,18 +27,14 @@ exports.up = function(knex, Promise) {
         tbl.string('comment').notNullable()
         tbl.string('post_id').unsigned().notNullable()
         .references('id').inTable('posts').onUpdate('CASCADE').onDelete('CASCADE')
-      
-
-        
-
     })
+
     .createTable('notifications', tbl => {
         tbl.increments()
         tbl.string('reaction').notNullable()
         tbl.string('comment_id').unsigned().notNullable()
         .references('id').inTable('comments').onUpdate('CASCADE').onDelete('CASCADE')
     })
-  
 };
 
 exports.down = function(knex, Promise) {

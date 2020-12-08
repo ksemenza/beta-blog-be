@@ -104,6 +104,17 @@ router.put('/:id', restricted, (req, res) => {
     })
 });
 
+router.get('/:id/details', (req, res) => {
+    const id = req.params.id;
+    Users.getUserDetails(id)
+    .then(response => {
+        res.status(200).json(response)
+    })
+    .catch(err => {
+        res.status(500).json({error:err, message:`Error User's post id ${id} not found`})
+    })
+})
+
 // TOKEN GENERATE AND AUTH
 function generateToken(user) {
   const payload = {

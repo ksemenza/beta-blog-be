@@ -8,7 +8,19 @@ exports.seed = function(knex) {
         {
           "comment":"Computers are Cool",
           "post_id":"1"
-      }
+      },
+        {
+          "comment":"Teaching is hard",
+          "post_id":"3"
+      },
+        {
+          "comment":"Kids are wonderful",
+          "post_id":"5"
+      },
+        {
+          "comment":"DBT techniques",
+          "post_id":"7"
+      },
       ]);
     });
 };

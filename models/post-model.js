@@ -69,7 +69,8 @@ async function getPostDetails(post_id) {
     const comment = await commentModel.getPostComment(post_id)
 
     return {
-        'user_id':post.user_id,
+        'user_id': post.user_id,
+        'author':post.author,
         'id': post.id,
         'title':post.title,
         'content':post.content,

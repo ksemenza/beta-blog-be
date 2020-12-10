@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
 });
 
 //LOGIN USER
-router.post('/login', restricted, (req, res) => {
+router.post('/login', (req, res) => {
   // implement login
   let { username, password } = req.body;
   Users.findUserByUsername(username)
@@ -104,7 +104,7 @@ router.put('/:id', restricted, (req, res) => {
     })
 });
 
-router.get('/:id/details', (req, res) => {
+router.get('/:id/details', restricted, (req, res) => {
     const id = req.params.id;
     Users.getUserDetails(id)
     .then(response => {

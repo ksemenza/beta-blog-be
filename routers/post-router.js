@@ -5,7 +5,7 @@ const restricted = require('../user/auth-middleware.js')
 
 
 // POST
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
     const postData = req.body;
     postModel.addPost(postData)
     .then(response => {
@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.get('/', (req,res) => {
+router.get('/', restricted, (req,res) => {
 
     postModel.getPostsAll()
     .then(response => {
@@ -30,7 +30,7 @@ router.get('/', (req,res) => {
 
 
 // GET STRAIN ID
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
     const id = req.params.id;
 
     postModel.getPost(id)
@@ -42,7 +42,7 @@ router.get('/:id', (req, res) => {
     })
 });
 
-router.get('/:id/details', (req, res) => {
+router.get('/:id/details', restricted, (req, res) => {
     const id = req.params.id;
     postModel.getPostDetails(id)
     .then(response => {
@@ -54,7 +54,7 @@ router.get('/:id/details', (req, res) => {
 })
 
 // DELETE USER BY ID
-router.delete('/:id', (req, res) => {
+router.delete('/:id', restricted, (req, res) => {
     const id = req.params.id;
     postModel.removePost(id)
         .then(response => {
@@ -65,7 +65,7 @@ router.delete('/:id', (req, res) => {
         })
 });
 
-router.put('/:id', (req,res) => {
+router.put('/:id', restricted, (req,res) => {
     const id = req.params.id;
     const updatedPost = req.body
     postModel.updatePost(id, updatedPost)

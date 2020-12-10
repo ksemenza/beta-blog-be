@@ -56,7 +56,8 @@ async function getCommentDetails(comment_id) {
 
     return {
         'user_id':comment.user_id,
-        'post_id':comment.post_id,
+        'post_id': comment.post_id,
+        'author':comment.author,
         'id': comment.id,
         'comment':comment.comment,
         'notification':notification

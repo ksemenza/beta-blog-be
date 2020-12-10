@@ -1,5 +1,5 @@
 # Beta Blog Back End
-
+deployed heroku https://beta-blog-be.herokuapp.com/
 ### AUTH
 |         URL     |      ENDPOINT      |         DESCRIPTION     |
 | ------------- | ------------- | -------------|

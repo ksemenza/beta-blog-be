@@ -13,6 +13,7 @@ module.exports = {
 const db = require('../data/db-config.js');
 const postModel = require('../models/post-model.js')
 const commentModel = require('../models/comment-model.js')
+const notificationModel = require('../models/notification-model.js')
 
 
 // GET STRAINS
@@ -49,7 +50,6 @@ function findUsers() {
 function getUser(user_id) {
     return db('users')
     .where({id: user_id})
-    .first();
 }
 
 
@@ -69,11 +69,11 @@ function removeUser(user_id) {
 }
 
 
-function getUserPost(user_id) {
+function getUserPost(post_id) {
     return db('posts')
     .join('users', 'users.user_id', 'posts.user_id' )
     .select('posts.post_id', 'posts.name')
-    .where('posts.user_id', user_id)
+    .where('posts.user_id', post_id)
     
 }
 
@@ -81,6 +81,7 @@ async function getUserDetails(user_id) {
     const user = await getUser(user_id)
     const post = await postModel.getUserPost(user_id)
     const comment = await commentModel.getPostComment(user_id)
+    const notification = await notificationModel.getCommentNotification(user_id)
 
     return {
         'id':user.id,
@@ -89,6 +90,7 @@ async function getUserDetails(user_id) {
         'last_name':user.last_name,
         'email':user.email,
         'posts': post,
-        'comments':comment
+        'comments': comment,
+        'notifications': notification
     }
 }

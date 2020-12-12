@@ -10,6 +10,7 @@ module.exports = {
 }
 
 const commentModel = require('./comment-model.js')
+const userModel = require('../user/user-model.js')
 const db = require('../data/db-config.js')
 
 function getPostsAll(){
@@ -64,9 +65,12 @@ function updatePost(post_id, updatedPost) {
     })
 }
 
+
+//
 async function getPostDetails(post_id) {
     const post = await getPost(post_id)
     const comment = await commentModel.getPostComment(post_id)
+    const user = await userModel.findUserById(post_id)
 
     return {
         'user_id': post.user_id,
@@ -75,7 +79,8 @@ async function getPostDetails(post_id) {
         'title':post.title,
         'content':post.content,
         'topic':post.topic,
-        'comments':comment
+        'comments': comment,
+        'users':user
     }
 }
 

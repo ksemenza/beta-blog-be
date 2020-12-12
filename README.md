@@ -1,4 +1,19 @@
-# Beta Blog Back End
+## Beta Blog Back End
+
+[Github Repo Link](https://github.com/ksemenza/beta-blog-be) 
+- https://github.com/ksemenza/beta-blog-be
+
+- Local Host [http://localhost:8080](http://localhost:8080) 
+- Deployed Host [https://beta-blog-be.herokuapp.com/](https://beta-blog-be.herokuapp.com/)
+
+## Beta Blog Front End
+
+[Github Repo Link](https://github.com/ksemenza/beta-blog-fe) 
+- https://github.com/ksemenza/beta-blog-fe
+- Local [http://localhost:3000](http://localhost:3000) 
+- Deployed Host [https://beta-blog-fe.vercel.app](https://beta-blog-fe.vercel.app/)
+
+
 
 ### AUTH
 |         URL     |      ENDPOINT      |         DESCRIPTION     |
@@ -67,10 +82,11 @@
 **Add Post**
  ```json 
 {
+    "author":"{USERNAME}",
    "title":"Blog Title",
     "content":"Blog Article",
     "topic":"Tagged Topic",
-    "user_id":"1"
+    "user_id":"{USER_ID}"
 }
 ```
 ---
@@ -105,7 +121,7 @@
 ```json 
 {
     "comment":"Comment on Post",
-    "post_id":"1"
+    "post_id":"{POST_ID}"
 }
 
 ```
@@ -113,9 +129,10 @@
 **Update Comment**
 ```json 
 {
+    "author":"{USERNAME}",
     "id":"Comment ID",
     "comment":"Comment on Post",
-    "post_id":"1"
+    "post_id":"{POST_ID}"
 }
 
 ```

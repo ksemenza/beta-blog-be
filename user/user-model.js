@@ -12,6 +12,7 @@ module.exports = {
 
 const db = require('../data/db-config.js');
 const postModel = require('../models/post-model.js')
+const commentModel = require('../models/comment-model.js')
 
 
 // GET STRAINS
@@ -79,6 +80,7 @@ function getUserPost(user_id) {
 async function getUserDetails(user_id) {
     const user = await getUser(user_id)
     const post = await postModel.getUserPost(user_id)
+    const comment = await commentModel.getPostComment(user_id)
 
     return {
         'id':user.id,
@@ -86,6 +88,7 @@ async function getUserDetails(user_id) {
         'first_name':user.first_name,
         'last_name':user.last_name,
         'email':user.email,
-        'posts':post
+        'posts': post,
+        'comments':comment
     }
 }

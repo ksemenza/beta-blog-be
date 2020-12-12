@@ -3,7 +3,9 @@ exports.up = function(knex, Promise) {
     return   knex.schema
     
     .createTable('users', tbl => {
-        tbl.increments('id').index().unique()
+        tbl.increments('id').primary().unique()
+        tbl.timestamp('created_at').defaultTo(knex.fn.now())
+        tbl.timestamp('updated_at')
         tbl.string('first_name', 255).notNullable();
         tbl.string('last_name', 255).notNullable();
         tbl.string('username', 255).notNullable().unique();
@@ -11,27 +13,24 @@ exports.up = function(knex, Promise) {
         tbl.string('password', 255).notNullable()  
              
     })
-        
-            .createTable('topics', tbl => {
-            tbl.increments('id').index().unique()
-            tbl.string('subject').notNullable()
-    })
 
       .createTable('posts', tbl => {
-        tbl.increments('id').index().unique()
-          tbl.timestamp('created_at').defaultTo(knex.fn.now())
+        tbl.increments('id').primary().unique()
+        tbl.timestamp('created_at').defaultTo(knex.fn.now())
+        tbl.timestamp('updated_at')
         tbl.string('author').notNullable()
         tbl.string('title', 255).notNullable()
+        tbl.string('content').notNullable()
         tbl.string('topic', 255)
           .references('id').inTable('topics').onUpdate('CASCADE')
-        tbl.string('content').notNullable()
         tbl.string('user_id').unsigned().notNullable()
-        .references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
+          .references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
     })
 
     .createTable('comments', tbl => {
-        tbl.increments('id').index()
+        tbl.increments('id').primary().unique()
         tbl.timestamp('created_at').defaultTo(knex.fn.now())
+        tbl.timestamp('updated_at')
         tbl.string('author').notNullable()
         tbl.string('comment').notNullable()
         tbl.string('post_id').unsigned().notNullable()
@@ -40,10 +39,28 @@ exports.up = function(knex, Promise) {
         
 
     .createTable('notifications', tbl => {
-        tbl.increments()
-        tbl.string('reaction').notNullable()
-        tbl.string('comment_id').unsigned().notNullable()
-        .references('id').inTable('comments').onUpdate('CASCADE').onDelete('CASCADE')
+      tbl.increments().index()
+        tbl.timestamp('created_at').defaultTo(knex.fn.now())
+        tbl.timestamp('updated_at')
+        tbl.string('likes').unsigned()
+        tbl.string('dislikes').unsigned()
+        tbl.string('love').unsigned()
+        tbl.string('funny').unsigned()
+        tbl.string('favorite').unsigned()
+        tbl.string('flag').unsigned()
+        tbl.string('watch').unsigned()
+
+        tbl.string('post_id').unsigned()
+          .references('id').inTable('comments').onUpdate('CASCADE').onDelete('CASCADE')
+        tbl.string('comment_id').unsigned()
+          .references('id').inTable('comments').onUpdate('CASCADE').onDelete('CASCADE')
+    })
+  
+      .createTable('topics', tbl => {
+        tbl.increments('id').index().unique()
+        tbl.string('subject').notNullable()
+        tbl.string('post_id').unsigned()
+          .references('id').inTable('posts').onUpdate('CASCADE').onDelete('CASCADE')
     })
 };
 
@@ -53,6 +70,7 @@ exports.down = function(knex, Promise) {
      .dropTableIfExists('posts')
      .dropTableIfExists('comments')
      .dropTableIfExists('notifications')
+     .dropTableIfExists('topics')
 
 };
 

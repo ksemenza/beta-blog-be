@@ -10,6 +10,7 @@ module.exports = {
 
 const db = require('../data/db-config.js')
 const notificationModel = require('./notification-model.js')
+const postModel = require('./post-model.js')
 
 
 function getCommentsAll(){
@@ -53,6 +54,7 @@ function updateComment(comment_id, updatedComment) {
 async function getCommentDetails(comment_id) {
     const comment = await getComment(comment_id)
     const notification = await notificationModel.getCommentNotification(comment_id)
+    const post = await postModel.getPostDetails(comment_id)
 
     return {
         'user_id':comment.user_id,
@@ -60,7 +62,8 @@ async function getCommentDetails(comment_id) {
         'author':comment.author,
         'id': comment.id,
         'comment':comment.comment,
-        'notification':notification
+        'notification': notification,
+        'posts':post
     }
 }
 

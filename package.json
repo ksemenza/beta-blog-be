@@ -6,12 +6,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "jest --watch",
-    "migrate-rollback":"npx knex migrate:rollback",
-    "migrate-latest":"npx knex migrate:latest",
-    "git-add":"git add .",
-    "git-commit":"git commit -m 'auto updated' ",
-    "git-push":"git push"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

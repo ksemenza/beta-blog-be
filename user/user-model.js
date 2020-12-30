@@ -70,10 +70,11 @@ function removeUser(user_id) {
 
 
 function getUserPost(post_id) {
-    return db('posts')
-    .join('users', 'users.user_id', 'posts.user_id' )
-    .select('posts.post_id', 'posts.name')
-    .where('posts.user_id', post_id)
+    return db('users')
+    .join('posts', 'posts.user_id', 'users.id' )
+        .where('post_id', post_id)
+        .select('post.id', 'post.title', 'post.content','post.topic')
+
     
 }
 

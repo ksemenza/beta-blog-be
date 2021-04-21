@@ -16,7 +16,7 @@
 
 
 ### AUTH
-|         URL     |      ENDPOINT      |         DESCRIPTION     |
+|         URL     |      ENDPOINT       |         DESCRIPTION     |
 | ------------- | ------------- | -------------|
 | POST          | /auth/register | register user|
 | POST          | /auth/login    | login user   |

@@ -7,5 +7,5 @@ server.use('/', (req, res) => {
 })
 
 server.listen(PORT, () => {
-  console.log(`<~~~~~ MATRIX LISTENING ON ${PORT} ~~~~~~>`);
+  console.log(`<~~~~~ MATRIX LISTENING ON ${PORT} ~ ~~~~~>`);
 });

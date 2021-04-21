@@ -1,5 +1,7 @@
 # Beta Blog Back End
 deployed heroku https://beta-blog-be.herokuapp.com/
+localhost:8080
+
 ### AUTH
 |         URL     |      ENDPOINT      |         DESCRIPTION     |
 | ------------- | ------------- | -------------|

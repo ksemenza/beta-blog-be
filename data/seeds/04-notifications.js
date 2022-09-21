@@ -1,7 +1,7 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('notifications').del()
+  return knex('notifications')
     .then(function () {
       // Inserts seed entries
       return knex('notifications').insert([
